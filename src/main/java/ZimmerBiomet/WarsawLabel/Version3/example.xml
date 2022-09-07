@@ -1,0 +1,742 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tmx version="1.4">
+  <header creationtool="SDLXLiff2Tmx" creationtoolversion="1.0" o-tmf="SDLXliff2Tmx Generic 1.0 Format" datatype="xml" segtype="sentence" adminlang="en-US" srclang="en-US" creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx" />
+  <body>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>No Face Adaptor Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai d’adaptateur avant alésage de surface</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Face Adaptor Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai d’adaptateur après alésage de surface</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Taper Adaptor Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai d’adaptateur de cône</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>IM Stem</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Tige IM</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>T-Body Adapter Only</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Adaptateur pour corps en T uniquement</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>IM Stem Taper Separator</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Séparateur de cônes de tige IM</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Short Pilot</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Tige-guide courte</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Short Anchor Plug Holder</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Support de bouchon d’ancrage court</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Centering Sleeve Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai de manchon de centrage</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Short 5-Hole Drill Guide</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Guide de perçage court à 5 trous</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Triple Reamer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Alésoir triple</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Short Reamer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Alésoir court</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Short Triple Reamer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Alésoir triple court</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Segmental Distal Femoral Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai fémoral distal Segmental</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Proximal Femoral Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai fémoral proximal</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Pre-Load Taper Separator</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Séparateur de cônes de précharge</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Taper Separator Wrench</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Clé pour séparateur de cônes</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Hex Screwdriver</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Tournevis hexagonal</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Short Segment Femoral</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Segment fémoral court</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Instrument Case</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Boîte à instruments</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Femoral Trials Instrument Case</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Boîte à instruments pour essais fémoraux</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>General Instrument Case</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Boîte pour instruments généraux</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Modular Arthrodesis</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Arthrodèse modulaire</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Taper Impactor Handle</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Manche d’impacteur de cône</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Stem Flare Reamer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Alésoir à évasement de tige</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Diaphyseal Taper Holder</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Support de cône diaphysaire</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Impactor Base</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Base d’impacteur</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Trial Assembly</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Ensemble d’essai</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Stacking Adapter/Axle Screwdriver</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Adaptateur d’empilement / Tournevis d’axe</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Femoral Bumper Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai de pare-choc fémoral</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Anti-Torque Bar</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Barre anticouple</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Stem Impactor</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Impacteur de tige</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>RS Universal Tibial Augment</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Rallonge tibiale universelle TR</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>RS Tibial Augment</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Rallonge tibiale TR</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Do Not Implant</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Non implantable</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Taper Separator</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Séparateur de cônes</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Square Style</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Type carré</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Zimmer Hudson Style</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Type Zimmer Hudson</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Insert Shaft</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Tige d’insertion</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Small</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Petit</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Large</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Grand</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Elliptical Planer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Rabot elliptique</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Right</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Droit</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Left</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Gauche</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Finn Style</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Type Finn</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Letson Style</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Type Letson</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Standard</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Standard</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Triple Reamer Instrument Case</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Boîte à instruments pour alésoir triple</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Reduced Resection</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Résection réduite</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Half Case</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Demi-boîte</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Wrench</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Clé</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Plus</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Plus</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Provisional</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Provisoire</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>MR/LL</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>MD/LG</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>ML/LR</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>MG/LD</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>T-Body Only</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Corps en T uniquement</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Cross Bar Assembly</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Ensemble barre transversale</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Anchor Plug Holder</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Support de bouchon d’ancrage</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Nut Driver</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Tourne-écrou</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Centering Sleeve</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Manchon de centrage</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Anti-Rotation Pin Drill Guide</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Guide de perçage de plot anti-rotation</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Spanner Wrench</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Clé d’assemblage</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Anti-Torque Wrench</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Clé anticouple</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Taper Release</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Dégagement de cône</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Hook Depth Gauge</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Jauge de profondeur à crochet</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Centering Sleeve Impactor</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Impacteur de manchon de centrage</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Pin Inserter Handle</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Manche d’introducteur pour broche</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Pin Inserter Assembly</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Ensemble introducteur de broche</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Pin Extractor</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Extracteur de broche</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Sliding Scale Assembly</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Ensemble graduation coulissante</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Reamer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Alésoir</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Triple Reamer Planer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Rabot d’alésoir triple</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Compress Male / OSS Female</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Mâle Compress / femelle OSS</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Compress Male / OSS Male</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Mâle Compress / mâle OSS</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Compress Female / OSS Male</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Femelle Compress / mâle OSS</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Compress Female / OSS Female</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Femelle Compress / femelle OSS</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Distal Femoral Spindle Sizer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Gabarit de broche fémorale distale</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Pilot</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Tige-guide</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Taper Adapter Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai d’adaptateur de cône</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>3-Piece Modular Face Reamer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Alésoir de surface modulaire à 3 éléments</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Blade For Modular Reamer</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Lame pour alésoir modulaire</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Drill For Anti-Rotation Pin</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Foret pour plot anti-rotation</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Drill Guide For Anti-Rotation Pin</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Guide de perçage pour plot anti-rotation</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Hex Pin Driver</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Introducteur hexagonal</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Ruler</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Règle</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Spindle Extractor</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Extracteur de broche</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Male Taper Holder</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Support de cône mâle</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Long</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Long</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Short</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Court</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Adapter Trial</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Essai d’adaptateur</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>No Face Ream</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Avant alésage de surface</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20191021T144709Z" creationid="TMServe\SDLXliff2Tmx">
+      <tuv xml:lang="en-US">
+        <seg>Face Reamed</seg>
+      </tuv>
+      <tuv xml:lang="fr-FR">
+        <seg>Après alésage de surface</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>
