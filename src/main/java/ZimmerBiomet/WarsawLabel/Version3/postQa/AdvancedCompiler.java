@@ -232,10 +232,17 @@ public class AdvancedCompiler {
 
         }
 
+        if (sourceCells.size() != targetCells.size()) {
+            throw new IOException("Translation row count does not match master language rows for "
+                    + t.getName() + ": master=" + sourceCells.size() + ", translation=" + targetCells.size());
+        }
         for (int m = 0; m < targetCells.size(); m++) {
             System.out.println(m);
             System.out.println(t.getName());
             XSSFCell tCell = targetCells.get(m);
+            if (tCell == null) {
+                throw new IOException("Missing translated cell at row " + (m + 1) + " in " + t.getName());
+            }
 //            System.out.println(m);
 //            System.out.println(t.getPath());
             String value = tCell.getStringCellValue();

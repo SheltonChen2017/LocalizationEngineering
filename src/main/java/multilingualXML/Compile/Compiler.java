@@ -6,110 +6,124 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Compiler {
-
-    String sourcePath;
-    String translationPath;
-    String finalPath;
-    //    SAXReader translationReader;
-    Document sourceDoc;
-
-    public final String nameRegex = "_(.*?)\\.xliff";
-
-    final static ResourceBundle bundle = ResourceBundle.getBundle("multilingualLanSelector");
-
-    List<File> translatedList;
+    private final String finalPath;
+    private final Document sourceDoc;
+    private final List<File> translatedList;
+    private final String nameRegex = "_(.*?)\\.xliff$";
 
     public Compiler(String sourcePath, String translationPath, String finalPath) throws DocumentException {
-        this.sourcePath = sourcePath;
-        this.translationPath = translationPath;
         this.finalPath = finalPath;
-        this.sourceDoc = new SAXReader().read(new File(sourcePath).listFiles()[0]);
-        this.translatedList = Arrays.asList(new File(translationPath).listFiles());
+        File[] sourceFiles = new File(sourcePath).listFiles(File::isFile);
+        File[] translationFiles = new File(translationPath).listFiles(File::isFile);
+        if (sourceFiles == null || sourceFiles.length != 1) {
+            throw new IllegalArgumentException("Source folder must contain exactly one source XML file: " + sourcePath);
+        }
+        if (translationFiles == null) {
+            throw new IllegalArgumentException("Translation folder is not readable: " + translationPath);
+        }
+        this.sourceDoc = newSecureReader().read(sourceFiles[0]);
+        this.translatedList = Arrays.asList(translationFiles);
     }
 
     public void produce() throws DocumentException, IOException {
-
-        for(File f: this.translatedList){
-
-            Document translationDoc = new SAXReader().read(f);
-
-            this.produce(this.sourceDoc, translationDoc, f.getName());
-
+        for (File file : translatedList) {
+            Document translationDoc = newSecureReader().read(file);
+            applyTranslation(sourceDoc, translationDoc, file.getName());
         }
-
-
+        writeDoc(sourceDoc, finalPath);
     }
 
-    private void produce(Document sourceDoc, Document translationDoc, String transFileName) throws IOException {
+    private void applyTranslation(Document source, Document translation, String filename) {
+        String language = parseName(filename);
+        Element xliffFile = translation.getRootElement().element("file");
+        Element body = xliffFile == null ? null : xliffFile.element("body");
+        if (body == null) {
+            throw new IllegalArgumentException("XLIFF has no file/body: " + filename);
+        }
 
-        String lan = this.parseName(transFileName);
-        String lanCode = this.bundle.getString(lan);
-        Element sourceRoot = sourceDoc.getRootElement();
-        List<Element> sourceunits = sourceRoot.elements();
-
-        Element translationbody = translationDoc.getRootElement().element("file").element("body");
-
-        List<Element> transunits = translationbody.elements();
-
-        for(int i=0;i<transunits.size();i++){
-
-            Element elementSource = sourceunits.get(i);
-            Element target = transunits.get(i).element("target");
-            String targetString = target.getText();
-            List<Element> lanElements = elementSource.elements();
-
-            for(Element lanElement: lanElements){
-
-                if(lanElement.getName().equals(lan)){
-                    System.out.println("------");
-                    lanElement.setText(targetString);
-
-                }
-
+        Map<String, String> targetsById = new LinkedHashMap<>();
+        for (Object item : body.elements("trans-unit")) {
+            Element unit = (Element) item;
+            String id = unit.attributeValue("id");
+            Element target = unit.element("target");
+            if (id == null || target == null) {
+                throw new IllegalArgumentException("Each trans-unit must have an id and target: " + filename);
             }
-
-
+            if (targetsById.put(id, target.getText()) != null) {
+                throw new IllegalArgumentException("Duplicate trans-unit id '" + id + "' in " + filename);
+            }
         }
 
-        this.writeDoc(sourceDoc, this.finalPath);
+        Set<String> applied = new HashSet<>();
+        for (Object item : source.getRootElement().elements()) {
+            Element sourceUnit = (Element) item;
+            String id = sourceUnit.getName();
+            if (!targetsById.containsKey(id)) {
+                continue;
+            }
+            Element languageElement = sourceUnit.element(language);
+            if (languageElement != null) {
+                languageElement.setText(targetsById.get(id));
+                applied.add(id);
+            }
+        }
 
+        Set<String> unmatched = new LinkedHashSet<>(targetsById.keySet());
+        unmatched.removeAll(applied);
+        if (!unmatched.isEmpty()) {
+            throw new IllegalArgumentException("No matching source/language element for IDs " + unmatched + " in " + filename);
+        }
     }
 
-    private void writeDoc(Document sourceDoc, String finalPath) throws IOException {
-
-        OutputFormat print = OutputFormat.createPrettyPrint();
-        print.setEncoding("utf-8");
-        XMLWriter writer = new XMLWriter(new FileOutputStream(new File(finalPath+"\\"+"final"+".xml")), print);
-        writer.write(sourceDoc);
-
+    private void writeDoc(Document source, String outputPath) throws IOException {
+        File outputDirectory = new File(outputPath);
+        if (!outputDirectory.isDirectory() && !outputDirectory.mkdirs()) {
+            throw new IOException("Could not create output directory: " + outputDirectory);
+        }
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        format.setEncoding("UTF-8");
+        try (FileOutputStream output = new FileOutputStream(new File(outputDirectory, "final.xml"))) {
+            XMLWriter writer = new XMLWriter(output, format);
+            writer.write(source);
+            writer.flush();
+        }
     }
 
-    private String parseName(String transFileName) {
-        Pattern pattern = Pattern.compile(this.nameRegex);
-
-        Matcher matcher = pattern.matcher(transFileName);
-
-        matcher.find();
-
+    private String parseName(String filename) {
+        Matcher matcher = Pattern.compile(nameRegex).matcher(filename);
+        if (!matcher.find()) {
+            throw new IllegalArgumentException("Translation filename does not match '<name>_<language>.xliff': " + filename);
+        }
         return matcher.group(1);
+    }
 
+    private static SAXReader newSecureReader() throws DocumentException {
+        SAXReader reader = new SAXReader();
+        try {
+            reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            reader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            reader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        } catch (SAXException e) {
+            throw new DocumentException("Unable to configure secure XML parser", e);
+        }
+        return reader;
     }
 
     public static void main(String[] args) throws DocumentException, IOException {
-        new Compiler("C:\\Users\\trunk\\OneDrive\\桌面\\demo_project\\Project3_multilingualXML\\compile\\source",
-                "C:\\Users\\trunk\\OneDrive\\桌面\\demo_project\\Project3_multilingualXML\\compile\\translated",
-               "C:\\Users\\trunk\\OneDrive\\桌面\\demo_project\\Project3_multilingualXML\\compile\\final" ).produce();
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Usage: Compiler <source-folder> <translation-folder> <output-folder>");
+        }
+        new Compiler(args[0], args[1], args[2]).produce();
     }
-
 }

@@ -39,7 +39,10 @@ public class PropertiesUpdater extends AbstractLoader implements PropertiesLoade
 
         File report = new File("C:\\Users\\trunk\\OneDrive\\桌面\\Career Related Access\\workaholic\\1120111_FicoDevelopment\\test run" + "awesomeReport.xlsx");
 
-        this.workbook.write(new FileOutputStream(report));
+        report = new File(this.targetFolder, "localization-update-report.xlsx");
+        try (FileOutputStream output = new FileOutputStream(report)) {
+            this.workbook.write(output);
+        }
 
         this.updateLanguageFiles();
 
@@ -80,9 +83,15 @@ public class PropertiesUpdater extends AbstractLoader implements PropertiesLoade
 
         LinkedHashMap<String, String> insertMap = new LinkedHashMap<>();
 
-        englishProperty.load(new BufferedInputStream(new FileInputStream(englishFile)));
-        variantProperty.load(new BufferedInputStream(new FileInputStream(variantFile)));
-        sourceProperty.load(new BufferedInputStream(new FileInputStream(sourceFile)));
+        try (Reader reader = utf8Reader(englishFile)) {
+            englishProperty.load(reader);
+        }
+        try (Reader reader = utf8Reader(variantFile)) {
+            variantProperty.load(reader);
+        }
+        try (Reader reader = utf8Reader(sourceFile)) {
+            sourceProperty.load(reader);
+        }
         StringBuilder sb = new StringBuilder();
 
         Set<String> englishKeys = englishProperty.stringPropertyNames();
@@ -94,22 +103,18 @@ public class PropertiesUpdater extends AbstractLoader implements PropertiesLoade
 
             String value = (String) englishProperty.get(key);
 
-            if (!sourceKeys.contains(key) || !variantKeys.contains(key)) {
+            if (!variantKeys.contains(key)) {
 //                variantProperty.put(key, value);
                 insertMap.put(key, value);
             }
         }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(variantFile)));
+        BufferedReader reader = new BufferedReader(utf8Reader(variantFile));
 //System.out.println(variantFile.getName());
         String temp;
 
         while ((temp = reader.readLine()) != null) {
-            if (!temp.startsWith("#")) {
-                sb.append("#").append(temp).append("\r\n");
-            } else {
-                sb.append(temp).append("\r\n");
-            }
+            sb.append(temp).append(System.lineSeparator());
 
         }
 
@@ -119,7 +124,8 @@ public class PropertiesUpdater extends AbstractLoader implements PropertiesLoade
 
             String insertValue = insertMap.get(insertKey);
 
-            sb.append(insertKey).append("=").append(insertValue).append("\r\n");
+            sb.append(escapeProperty(insertKey)).append("=").append(escapeProperty(insertValue))
+                    .append(System.lineSeparator());
 
         }
 
@@ -131,9 +137,23 @@ public class PropertiesUpdater extends AbstractLoader implements PropertiesLoade
 //        String s = reader.readLine();
 
 
-        FileOutputStream fos = new FileOutputStream(new File(variantFile.getParent() + "\\" + variantFile.getName()));
-
-        fos.write(sb.toString().getBytes());
+        reader.close();
+        java.nio.file.Path destination = variantFile.toPath();
+        java.nio.file.Path temporary = java.nio.file.Files.createTempFile(destination.getParent(),
+                variantFile.getName(), ".tmp");
+        try {
+            java.nio.file.Files.write(temporary, sb.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            try {
+                java.nio.file.Files.move(temporary, destination,
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+                        java.nio.file.StandardCopyOption.ATOMIC_MOVE);
+            } catch (java.nio.file.AtomicMoveNotSupportedException e) {
+                java.nio.file.Files.move(temporary, destination,
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+        } finally {
+            java.nio.file.Files.deleteIfExists(temporary);
+        }
 
 //
 ////        variantProperty.store(fos);
@@ -148,10 +168,11 @@ public class PropertiesUpdater extends AbstractLoader implements PropertiesLoade
         Properties sourceProperties = new Properties();
         Properties targetProperties = new Properties();
 
-        BufferedInputStream sourceStream = new BufferedInputStream(new FileInputStream(sourceFile));
-        BufferedInputStream targetStream = new BufferedInputStream(new FileInputStream(targetFile));
-        sourceProperties.load(sourceStream);
-        targetProperties.load(targetStream);
+        try (Reader sourceStream = utf8Reader(sourceFile);
+             Reader targetStream = utf8Reader(targetFile)) {
+            sourceProperties.load(sourceStream);
+            targetProperties.load(targetStream);
+        }
         Set<Object> sourceKeys = sourceProperties.keySet();
         Set<Object> targetKeys = targetProperties.keySet();
 //        int n = 0;
@@ -185,6 +206,16 @@ public class PropertiesUpdater extends AbstractLoader implements PropertiesLoade
 //        System.out.println(sheet.getPhysicalNumberOfRows());
     }
 
+
+    private static Reader utf8Reader(File file) throws IOException {
+        return new InputStreamReader(new FileInputStream(file), java.nio.charset.StandardCharsets.UTF_8);
+    }
+
+    private static String escapeProperty(String value) {
+        return value.replace("\\", "\\\\")
+                .replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t")
+                .replace("=", "\\=").replace(":", "\\:");
+    }
 
     public static void main(String[] args) throws IOException {
         PropertiesUpdater testProo = new PropertiesUpdater(

@@ -29,6 +29,9 @@ public class QaPreparer {
         this.qaDocumentPath = qaDocumentPath;
         this.masterPath = masterPath;
         this.transFolders = new File(translationFolderPath).listFiles();
+        if (this.transFolders == null) {
+            throw new IllegalArgumentException("Translation folder does not exist or is not readable: " + translationFolderPath);
+        }
 
 //        System.out.println(this.transFolders[1].getPath());
     }
@@ -74,6 +77,9 @@ public class QaPreparer {
 //            System.out.println(folder.getPath());
 //            System.out.println(lan + "----------");
 
+            if (lan == null) {
+                throw new IllegalArgumentException("Could not determine language from folder name: " + folder.getName());
+            }
             if (lan.equalsIgnoreCase("English")) {
                 enFolder = folder.getAbsolutePath();
 
@@ -86,6 +92,9 @@ public class QaPreparer {
         }
 
 
+        if (enFolder == null) {
+            throw new IllegalArgumentException("No English translation folder was found in " + translationFolderPath);
+        }
         for (File f : files) {
 
             this.generateQa(new File(enFolder), f);
@@ -97,16 +106,19 @@ public class QaPreparer {
     }
 
     private void generateQa(File sourceFolder, File transFolder) throws IOException, InvalidFormatException {
-        List<File> sources = Arrays.asList(sourceFolder.listFiles());
-        List<File> translations = Arrays.asList(transFolder.listFiles());
-
-        this.sort(sources);
-        this.sort(translations);
-
-        for (int i = 0; i < sources.size(); i++) {
-//            System.out.println(i + " is the number while " + sources.size() + " is the real size");
-            this.doGenerate(sources.get(i), translations.get(i));
-
+        Map<String, File> sources = filesByName(sourceFolder);
+        Map<String, File> translations = filesByName(transFolder);
+        Set<String> missingTranslations = new TreeSet<>(sources.keySet());
+        missingTranslations.removeAll(translations.keySet());
+        Set<String> unexpectedTranslations = new TreeSet<>(translations.keySet());
+        unexpectedTranslations.removeAll(sources.keySet());
+        if (!missingTranslations.isEmpty() || !unexpectedTranslations.isEmpty()) {
+            throw new IOException("File mismatch for " + transFolder.getName()
+                    + "; missing translations=" + missingTranslations
+                    + ", unexpected translations=" + unexpectedTranslations);
+        }
+        for (Map.Entry<String, File> entry : sources.entrySet()) {
+            this.doGenerate(entry.getValue(), translations.get(entry.getKey()));
         }
 
 
@@ -114,16 +126,18 @@ public class QaPreparer {
 
     private void doGenerate(File source, File trans) throws IOException, InvalidFormatException {
 
-        XSSFWorkbook sWorkbook = new XSSFWorkbook(source);
-        XSSFWorkbook tWorkbook = new XSSFWorkbook(trans);
-
-        XSSFWorkbook qaWorkbook = new XSSFWorkbook();
+        try (XSSFWorkbook sWorkbook = new XSSFWorkbook(source);
+             XSSFWorkbook tWorkbook = new XSSFWorkbook(trans);
+             XSSFWorkbook qaWorkbook = new XSSFWorkbook()) {
 
         XSSFSheet workSheet = qaWorkbook.createSheet();
 
         XSSFSheet sSheet = sWorkbook.getSheetAt(0);
 
         XSSFSheet tSheet = tWorkbook.getSheetAt(0);
+        if (sSheet.getLastRowNum() != tSheet.getLastRowNum()) {
+            throw new IOException("Row-count mismatch between " + source + " and " + trans);
+        }
 
 
         for (int i = 0; i < sSheet.getPhysicalNumberOfRows(); i++) {
@@ -134,6 +148,11 @@ public class QaPreparer {
 //            System.out.println(source.getPath());
             XSSFRow row = sSheet.getRow(i);
 //            System.out.println(row);
+            if (row == null || tSheet.getRow(i) == null || row.getCell(0) == null
+                    || tSheet.getRow(i).getCell(0) == null) {
+                throw new IOException("Missing source/target cell at row " + (i + 1)
+                        + " in " + source.getName() + " / " + trans.getName());
+            }
             XSSFCell cell = row.getCell(0);
 //            XSSFFont srcFont = cell.getCellStyle().getFont();
 //            XSSFCellStyle newStyle = qaWorkbook.createCellStyle();
@@ -156,7 +175,8 @@ public class QaPreparer {
 
 
         String lan = this.parseLanguage(trans.getParent());
-        this.lengthCheck(qaWorkbook, source, lan);
+            this.lengthCheck(qaWorkbook, source, lan);
+        }
 
 
     }
@@ -166,23 +186,20 @@ public class QaPreparer {
 
         File folder = new File(this.qaDocumentPath + "\\" + "lengthCheck");
 
-        if (!folder.exists() || !folder.isDirectory()) {
-            folder.mkdir();
+        if (!folder.isDirectory() && !folder.mkdirs()) {
+            throw new IOException("Could not create QA output folder: " + folder);
         }
 
         File subFolder = new File(this.qaDocumentPath + "\\" + "lengthCheck" + "\\" + lan);
 
-        if (!subFolder.exists() || !subFolder.isDirectory()) {
-            subFolder.mkdir();
+        if (!subFolder.isDirectory() && !subFolder.mkdirs()) {
+            throw new IOException("Could not create language output folder: " + subFolder);
         }
         File fileExcel = new File(subFolder.getPath() + "\\" + source.getName().substring(0, source.getName().lastIndexOf(".")) + "_" + lan + ".xlsx");
-        FileOutputStream fos = new FileOutputStream(fileExcel);
-
         this.addInformation(qaWorkbook, source.getName(), lan, this.masterPath);
-
-        qaWorkbook.write(fos);
-
-        fos.close();
+        try (FileOutputStream fos = new FileOutputStream(fileExcel)) {
+            qaWorkbook.write(fos);
+        }
 
         this.generateUnicodeText(qaWorkbook, source, lan);
 
@@ -190,7 +207,10 @@ public class QaPreparer {
     }
 
     private void addInformation(XSSFWorkbook qaWorkbook, String filename, String lan, String masterPath) throws IOException, InvalidFormatException {
-        File[] masters = new File(masterPath).listFiles();
+        File[] masters = new File(masterPath).listFiles(File::isFile);
+        if (masters == null) {
+            throw new IOException("Master folder does not exist or is not readable: " + masterPath);
+        }
 
         for (File master : masters) {
 
@@ -207,8 +227,7 @@ public class QaPreparer {
 
         String abbrev = this.bundle.getString(lan);
 
-        XSSFWorkbook masterBook = new XSSFWorkbook(master);
-
+        try (XSSFWorkbook masterBook = new XSSFWorkbook(master)) {
         XSSFSheet masterSheet = masterBook.getSheetAt(0);
 
         XSSFSheet workSheet = qaWorkbook.getSheetAt(0);
@@ -233,6 +252,10 @@ public class QaPreparer {
 
             }
 
+            if (cells.size() != workSheet.getPhysicalNumberOfRows()) {
+                throw new IOException("Master/QA row mismatch for " + filename + " and language " + lan
+                        + ": master=" + cells.size() + ", QA=" + workSheet.getPhysicalNumberOfRows());
+            }
             for (int j = 0; j < workSheet.getPhysicalNumberOfRows(); j++) {
 //                System.out.println(workSheet.getPhysicalNumberOfRows() + " is the number");
 //                System.out.println("Size of the cells is " + cells.size() + " and numbers of rows is " + workSheet.getPhysicalNumberOfRows());
@@ -248,13 +271,11 @@ public class QaPreparer {
 
                     double value = cells.get(j).getNumericCellValue();
 
-                    Double D = new Double(value);
-
                     NumberFormat instance = NumberFormat.getInstance();
 
                     instance.setGroupingUsed(false);
 
-                    String stringValue = instance.format(D);
+                    String stringValue = instance.format(value);
 
                     workSheet.getRow(j).createCell(8).setCellValue(stringValue);
                 } else {
@@ -267,6 +288,7 @@ public class QaPreparer {
             }
 
 
+        }
         }
 
     }
@@ -282,7 +304,7 @@ public class QaPreparer {
 
                     if (cell.getCellType() == CellType.NUMERIC) {
                         m++;
-                    } else if (cell.getStringCellValue() != "") {
+                    } else if (!cell.getStringCellValue().isEmpty()) {
                         m++;
                     }
 
@@ -298,8 +320,8 @@ public class QaPreparer {
 
         File folder = new File(this.qaDocumentPath + "\\" + "unicode");
 
-        if (!folder.exists() || !folder.isDirectory()) {
-            folder.mkdir();
+        if (!folder.isDirectory() && !folder.mkdirs()) {
+            throw new IOException("Could not create Unicode output folder: " + folder);
         }
         XSSFSheet sheet = qaWorkbook.getSheetAt(0);
 
@@ -314,7 +336,9 @@ public class QaPreparer {
 
         File unicode = new File(folder.getPath() + "\\" + source.getName().substring(0, source.getName().lastIndexOf(".")) + "_" + lan + ".txt");
 
-        new FileOutputStream(unicode).write(sb.toString().getBytes());
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(unicode), java.nio.charset.StandardCharsets.UTF_8)) {
+            writer.write(sb.toString());
+        }
 
     }
 
@@ -322,6 +346,20 @@ public class QaPreparer {
 
         Collections.sort(translations);
 
+    }
+
+    private static Map<String, File> filesByName(File folder) throws IOException {
+        File[] files = folder.listFiles(File::isFile);
+        if (files == null) {
+            throw new IOException("Folder does not exist or is not readable: " + folder);
+        }
+        Map<String, File> byName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        for (File file : files) {
+            if (byName.put(file.getName(), file) != null) {
+                throw new IOException("Duplicate filename ignoring case in " + folder + ": " + file.getName());
+            }
+        }
+        return byName;
     }
 
     //temp

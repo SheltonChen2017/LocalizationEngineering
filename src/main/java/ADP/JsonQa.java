@@ -3,94 +3,82 @@ package ADP;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.*;
 
 public class JsonQa {
-    String sourceFolder;
-    String targetFolder;
+    private final List<File> targetFiles = new ArrayList<>();
+    private final File source;
 
-    List<File> targetFiles = new ArrayList<>();
-
-File source;
-
-
-    public JsonQa(String sourceFolder, String targetFolder) throws FileNotFoundException {
-        this.sourceFolder = sourceFolder;
-        this.targetFolder = targetFolder;
-
-
-        File[] folders = new File(this.targetFolder).listFiles();
-
-        for(File f:folders){
-
-            File[] files = f.listFiles();
-
-            for(File target: files){
-                System.out.println(target.getName());
-                if(target.getName().endsWith(".json")){
-
-                    this.targetFiles.add(target);
-                }
-
-            }
-
+    public JsonQa(String sourceFolder, String targetFolder) throws IOException {
+        File[] sources = new File(sourceFolder).listFiles(
+                file -> file.isFile() && file.getName().toLowerCase(Locale.ROOT).endsWith(".json"));
+        if (sources == null || sources.length != 1) {
+            throw new IllegalArgumentException("Source folder must contain exactly one JSON file: " + sourceFolder);
         }
-
-
-
-        this.source = new File(this.sourceFolder).listFiles()[0];
+        source = sources[0];
+        collectJsonFiles(new File(targetFolder), targetFiles);
+        targetFiles.sort(Comparator.comparing(File::getPath, String.CASE_INSENSITIVE_ORDER));
     }
 
     public void produce() throws IOException {
-
-        String sourceContent = FileUtils.readFileToString(source, "UTF-8");
-        JSONObject sourceObject = new JSONObject(sourceContent);
-
-        for(File target: this.targetFiles){
-            this.produce(target, sourceObject);
+        JSONObject sourceObject = new JSONObject(FileUtils.readFileToString(source, StandardCharsets.UTF_8));
+        for (File target : targetFiles) {
+            produce(target, sourceObject);
         }
-
     }
 
     private void produce(File target, JSONObject sourceObject) throws IOException {
+        JSONObject targetObject = new JSONObject(FileUtils.readFileToString(target, StandardCharsets.UTF_8));
+        StringBuilder report = new StringBuilder("key\tsource\ttarget\tstatus\r\n");
 
-        JSONObject targetObject = new JSONObject(FileUtils.readFileToString(target, "utf-8"));
-
-        Set<String> keys = sourceObject.keySet();
-
-        StringBuilder sb = new StringBuilder();
-
-        for(String key: keys){
-
-            System.out.println("key");
-            String sourceString  = (String) sourceObject.get(key);
-
-            String targetString = (String) targetObject.get(key);
-
-
-            sb.append(sourceString).append("\t").append(targetString).append("\r\n");
-
-
+        Set<String> allKeys = new TreeSet<>();
+        allKeys.addAll(sourceObject.keySet());
+        allKeys.addAll(targetObject.keySet());
+        for (String key : allKeys) {
+            boolean hasSource = sourceObject.has(key) && !sourceObject.isNull(key);
+            boolean hasTarget = targetObject.has(key) && !targetObject.isNull(key);
+            Object sourceValue = hasSource ? sourceObject.get(key) : "";
+            Object targetValue = hasTarget ? targetObject.get(key) : "";
+            String status = !hasSource ? "EXTRA_TARGET_KEY"
+                    : !hasTarget ? "MISSING_TARGET_KEY"
+                    : sourceValue instanceof String && targetValue instanceof String ? "OK"
+                    : "NON_STRING_VALUE";
+            report.append(tsv(key)).append('\t').append(tsv(sourceValue)).append('\t')
+                    .append(tsv(targetValue)).append('\t').append(status).append("\r\n");
         }
 
-        String uniocodeTexts = sb.toString();
+        String basename = target.getName().replaceFirst("(?i)\\.json$", "");
+        File output = new File(target.getParentFile(), basename + "_json_qa.tsv");
+        Files.write(output.toPath(), report.toString().getBytes(StandardCharsets.UTF_8));
+    }
 
-        String parent = target.getParent();
+    private static void collectJsonFiles(File folder, List<File> output) throws IOException {
+        File[] children = folder.listFiles();
+        if (children == null) {
+            throw new IOException("Target folder does not exist or is not readable: " + folder);
+        }
+        for (File child : children) {
+            if (child.isDirectory()) {
+                collectJsonFiles(child, output);
+            } else if (child.getName().toLowerCase(Locale.ROOT).endsWith(".json")) {
+                output.add(child);
+            }
+        }
+    }
 
-        File file = new File(new File(parent).getParent() + "\\" + new File(parent).getName()+ "jsons.txt");
-
-        FileOutputStream fos = new FileOutputStream(file);
-
-        fos.write(uniocodeTexts.getBytes());
+    private static String tsv(Object value) {
+        return String.valueOf(value).replace("\t", "\\t")
+                .replace("\r", "\\r").replace("\n", "\\n");
     }
 
     public static void main(String[] args) throws IOException {
-        new JsonQa("C:\\Users\\trunk\\OneDrive\\桌面\\workaholic\\200548\\eqa\\AIM-June-2020",
-                "C:\\Users\\trunk\\OneDrive\\桌面\\workaholic\\200548\\eqa\\target").produce();
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Usage: JsonQa <source-folder> <target-folder>");
+        }
+        new JsonQa(args[0], args[1]).produce();
     }
-
 }
